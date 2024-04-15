@@ -2,17 +2,11 @@
 
 namespace Reshaping.Extensions;
 
-/// <summary>
-/// 集成查询
-/// </summary>
 public static class QueryableExtensions
 {
     /// <summary>
-    /// 分组聚合
+    /// Group Aggregation
     /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="table">数据库表</param>
-    /// <returns></returns>
     public static IEnumerable<T> Unflatten<T>(this IQueryable table) => ((IEnumerable)Unflatten(string.Empty, typeof(IEnumerable<T>), table.Cast<object?>().AsEnumerable().Where(x => x != null).Select(x => x!.GetType().GetProperties().ToDictionary(y => y.Name, y => y.GetValue(x))).ToArray())!).Cast<T>();
 
     private static object? Unflatten(string key, Type type, IReadOnlyList<Dictionary<string, object?>> table)

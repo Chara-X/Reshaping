@@ -2,17 +2,11 @@
 
 namespace Reshaping.Extensions;
 
-/// <summary>
-/// 集成查询
-/// </summary>
 public static class EnumerableExtensions
 {
     /// <summary>
-    /// 多表连接
+    /// Multi-table joins.
     /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="source">数据序列</param>
-    /// <returns></returns>
     public static IQueryable Flatten<T>(this IEnumerable<T> source) => Flatten(string.Empty, source).AsQueryable();
 
     private static IEnumerable<Dictionary<string, object?>> Flatten(string key, object? value)
